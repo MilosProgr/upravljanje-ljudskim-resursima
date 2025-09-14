@@ -40,6 +40,7 @@ public class AuthTokenFilter extends UsernamePasswordAuthenticationFilter {
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }
+        System.out.println("Rezultat: "+token);
 
         super.doFilter(request, response, chain);
     }
