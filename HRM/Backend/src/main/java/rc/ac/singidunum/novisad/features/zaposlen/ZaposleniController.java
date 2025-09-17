@@ -33,6 +33,7 @@ import rc.ac.singidunum.novisad.features.plata.Plata;
 import rc.ac.singidunum.novisad.features.pozicija.Pozicija;
 import rc.ac.singidunum.novisad.features.pozicija.PozicijaService;
 import rc.ac.singidunum.novisad.features.zaposlen.ZaposleniDTO.ZaposleniDTORecord;
+import rc.ac.singidunum.novisad.generics.Link.Resource;
 import rc.ac.singidunum.novisad.generics.controller.GenericCrudController;
 import rc.ac.singidunum.novisad.generics.service.CrudService;
 import rc.ac.singidunum.novisad.security.UserDetailsService;
@@ -79,7 +80,7 @@ public class ZaposleniController extends GenericCrudController<ZaposleniDTORecor
 	
 	
 	@Secured("ADMINISTRATOR")
-    public ResponseEntity<List<ZaposleniDTORecord>> getAll() {
+    public ResponseEntity<Resource<List<ZaposleniDTORecord>>> getAll() {
         return super.getAll();
     }
 	
@@ -204,25 +205,18 @@ public class ZaposleniController extends GenericCrudController<ZaposleniDTORecor
 	
 	
 	 @RequestMapping(path = "/{id}",method = RequestMethod.GET)
-	    public ResponseEntity<ZaposleniDTORecord> getById(Long id) {
+	    public ResponseEntity<Resource<ZaposleniDTORecord>> getById(Long id) {
 	        return super.getById(id);
 	 }
 	 
 
 	
-	 @Override
-	 @Secured("ADMINISTRATOR")
-	 @RequestMapping(path = "",method = RequestMethod.POST)
-	 public ResponseEntity<ZaposleniDTORecord> create(@RequestBody Zaposleni zaposlen) {
-//	     zaposlen.setLozinka(passwordEncoder.encode(zaposlen.getLozinka()));
-//	     return super.create(zaposlen);
-		 return register("RADNIK", zaposlen);
-	 }
+	 
 
     @Override
     @Secured({"ADMINISTRATOR","RADNIK"})
     @RequestMapping(path = "/{id}",method = RequestMethod.PUT)
-    public ResponseEntity<ZaposleniDTORecord> update(@PathVariable("id") Long id,@RequestBody Zaposleni korisnik) {
+    public ResponseEntity<Resource<ZaposleniDTORecord>> update(@PathVariable("id") Long id,@RequestBody Zaposleni korisnik) {
     	
     		
     		korisnik.setLozinka(passwordEncoder.encode(korisnik.getLozinka()));
@@ -235,9 +229,21 @@ public class ZaposleniController extends GenericCrudController<ZaposleniDTORecor
     @Override
     @Secured("ADMINISTRATOR")
     @RequestMapping(path = "/{id}",method = RequestMethod.DELETE)
-    public ResponseEntity<ZaposleniDTORecord> delete(Long id) {
+    public ResponseEntity<Resource<Void>> delete(Long id) {
         return super.delete(id);
     }
+
+	@Override
+	protected String getBasePath() {
+		// TODO Auto-generated method stub
+		return "/api/zaposleni";
+	}
+
+	@Override
+	protected Long getEntityId(ZaposleniDTORecord dto) {
+		// TODO Auto-generated method stub
+		return dto.id();
+	}
 	
 
 }

@@ -30,5 +30,15 @@ public class OdsustvoController extends GenericCrudController<OdsustvoDTORecord,
 		List<OdsustvoDTORecord> odsustva = odsustvoService.getOdsustvaZaposlenog(id);
 		return ResponseEntity.ok(odsustva);
 	}
+	@Override
+	protected String getBasePath() {
+		// TODO Auto-generated method stub
+		return "/api/odsustva";
+	}
+	@Override
+	protected Long getEntityId(OdsustvoDTORecord dto) {
+		// TODO Auto-generated method stub
+		return dto.id();
+	}
 
 }

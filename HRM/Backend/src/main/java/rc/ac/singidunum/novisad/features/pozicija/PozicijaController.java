@@ -20,4 +20,16 @@ public class PozicijaController extends GenericCrudController<PozicijaDTORecord,
 		return pozicijaService;
 	}
 
+	@Override
+	protected String getBasePath() {
+		// TODO Auto-generated method stub
+		return "/api/pozicije";
+	}
+
+	@Override
+	protected Long getEntityId(PozicijaDTORecord dto) {
+		// TODO Auto-generated method stub
+		return dto.id();
+	}
+
 }

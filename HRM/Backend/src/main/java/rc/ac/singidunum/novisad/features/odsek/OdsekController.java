@@ -20,4 +20,16 @@ public class OdsekController extends GenericCrudController<OdsekDTORecord, Odsek
 		return odsekService;
 	}
 
+	@Override
+	protected String getBasePath() {
+		// TODO Auto-generated method stub
+		return "/api/odseci";
+	}
+
+	@Override
+	protected Long getEntityId(OdsekDTORecord dto) {
+		// TODO Auto-generated method stub
+		return dto.id();
+	}
+
 }

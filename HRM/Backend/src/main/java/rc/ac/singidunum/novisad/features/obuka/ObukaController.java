@@ -35,4 +35,16 @@ public class ObukaController extends GenericCrudController<ObukaDTORecord, Obuka
 
 		}
 	}
+
+	@Override
+	protected String getBasePath() {
+		// TODO Auto-generated method stub
+		return "/api/obuke";
+	}
+
+	@Override
+	protected Long getEntityId(ObukaDTORecord dto) {
+		// TODO Auto-generated method stub
+		return dto.id();
+	}
 }

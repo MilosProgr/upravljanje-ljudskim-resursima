@@ -1,29 +1,36 @@
 package rc.ac.singidunum.novisad.generics.controller;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import rc.ac.singidunum.novisad.generics.pagination.Page;
+import rc.ac.singidunum.novisad.generics.Link.Resource;
+
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 public interface CrudController<T,E,ID> {
-	@GetMapping
-	ResponseEntity<List<T>> getAll();
-	
-	@GetMapping("/{id}")
-    ResponseEntity<T> getById(@PathVariable ID id);
-		
-	@PostMapping
-    ResponseEntity<T> create(@RequestBody E entity);
-	
-	@PutMapping("/{id}")
-    ResponseEntity<T> update(@PathVariable ID id, @RequestBody E entity);
-	
-	@DeleteMapping("/{id}")
-    ResponseEntity<T> delete(@PathVariable ID id);
-	
+
+    @GetMapping
+    ResponseEntity<Resource<List<T>>> getAll();
+    
+
+    @GetMapping("/{id}")
+    ResponseEntity<Resource<T>> getById(@PathVariable ID id);
+
+    @PostMapping
+    ResponseEntity<Resource<T>> create(@RequestBody E entity);
+    
+
+    @PutMapping("/{id}")
+    ResponseEntity<Resource<T>> update(@PathVariable ID id, @RequestBody E entity);
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<Resource<Void>> delete(@PathVariable ID id);
+
+    @GetMapping("/paged")
+    ResponseEntity<Resource<Page<T>>> getAllPaged(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    );
+
 }

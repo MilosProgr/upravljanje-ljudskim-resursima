@@ -6,6 +6,7 @@ import java.util.List;
 
 
 
+
 public interface Mapper<T,E> {
 	
 	T map(E e);
@@ -24,6 +25,8 @@ public interface Mapper<T,E> {
     	}
     	return output;
     }
+    
+ 
     
     
 }

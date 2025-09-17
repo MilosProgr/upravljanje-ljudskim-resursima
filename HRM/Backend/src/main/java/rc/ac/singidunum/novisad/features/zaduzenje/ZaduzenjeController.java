@@ -35,4 +35,16 @@ public class ZaduzenjeController extends GenericCrudController<ZaduzenjeDTORecor
 		}
 	}
 
+	@Override
+	protected String getBasePath() {
+		// TODO Auto-generated method stub
+		return "/api/zaduzenje";
+	}
+
+	@Override
+	protected Long getEntityId(ZaduzenjeDTORecord dto) {
+		// TODO Auto-generated method stub
+		return dto.id();
+	}
+
 }

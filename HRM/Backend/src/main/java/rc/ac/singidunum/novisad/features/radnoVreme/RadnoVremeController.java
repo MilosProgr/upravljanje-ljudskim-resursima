@@ -85,4 +85,16 @@ public class RadnoVremeController extends GenericCrudController<RadnoVremeDTORec
         }
     }
 
+	@Override
+	protected String getBasePath() {
+		// TODO Auto-generated method stub
+		return "/api/radnoVreme";
+	}
+
+	@Override
+	protected Long getEntityId(RadnoVremeDTORecord dto) {
+		// TODO Auto-generated method stub
+		return dto.id();
+	}
+
 }

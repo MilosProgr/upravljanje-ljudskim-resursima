@@ -21,4 +21,16 @@ public class AdresaController extends GenericCrudController<AdresaDTORecord, Adr
 		return adresaService;
 	}
 
+	@Override
+	protected String getBasePath() {
+		// TODO Auto-generated method stub
+		return "/api/adrese";
+	}
+
+	@Override
+	protected Long getEntityId(AdresaDTORecord dto) {
+		
+		return dto.id();
+	}
+
 }

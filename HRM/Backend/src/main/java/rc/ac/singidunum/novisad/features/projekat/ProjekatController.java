@@ -20,4 +20,16 @@ public class ProjekatController extends GenericCrudController<ProjekatDTORecord,
 		return projekatService;
 	}
 
+	@Override
+	protected String getBasePath() {
+		// TODO Auto-generated method stub
+		return "/api/projekti";
+	}
+
+	@Override
+	protected Long getEntityId(ProjekatDTORecord dto) {
+		// TODO Auto-generated method stub
+		return dto.id();
+	}
+
 }

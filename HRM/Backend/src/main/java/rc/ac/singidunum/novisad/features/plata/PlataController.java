@@ -36,5 +36,17 @@ public class PlataController extends GenericCrudController<PlataDTORecord, Plata
 	    return ResponseEntity.ok(plataDTO);
 	}
 
+	@Override
+	protected String getBasePath() {
+		// TODO Auto-generated method stub
+		return "/api/plate";
+	}
+
+	@Override
+	protected Long getEntityId(PlataDTORecord dto) {
+		// TODO Auto-generated method stub
+		return dto.id();
+	}
+
 
 }

@@ -21,4 +21,16 @@ public class KorisnikPravoPristupaController extends GenericCrudController<Koris
 		return kpService;
 	}
 
+	@Override
+	protected String getBasePath() {
+		// TODO Auto-generated method stub
+		return "/api/pravaPristupa";
+	}
+
+	@Override
+	protected Long getEntityId(KorisnikPravoPristupaDTORecord dto) {
+		// TODO Auto-generated method stub
+		return dto.id();
+	}
+
 }
