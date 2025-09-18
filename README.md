@@ -1,2 +1,2 @@
-# upravljanje-ljudskim-resursima
-Ovo je diplomski rad koji sam odbranio na temu upravljanje ljudskim resursima
+# Human Resource Management
+This is the project ffor the HRM
