@@ -1,2 +1,2 @@
 # Human Resource Management
-This is the project ffor the HRM
+This is the project for the HRM
