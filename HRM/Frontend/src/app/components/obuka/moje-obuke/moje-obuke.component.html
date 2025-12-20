@@ -1,0 +1,16 @@
+<table>
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Opis</th>
+            <th>Datum odrzavanja</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let o of obukeMoje">
+            <td>{{o.naziv}}</td>
+            <td>{{o.opis}}</td>
+            <td>{{o.datumOdrzavanja}}</td>
+        </tr>
+    </tbody>
+</table>

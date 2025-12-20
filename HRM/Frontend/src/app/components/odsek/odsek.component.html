@@ -1,0 +1,15 @@
+<table>
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Opis</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let o of odseci">
+            <td>{{o.naziv}}</td>
+            <td>{{o.opis}}</td>
+        </tr>
+    </tbody>
+</table>
+<button mat-raised-button color="primary" routerLink="/odseci/dodaj">Dodaj odsek</button>

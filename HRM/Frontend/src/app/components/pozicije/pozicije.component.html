@@ -1,0 +1,17 @@
+<table>
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Opis</th>
+            <th>Plata</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of entities">
+            <td>{{p.naziv}}</td>
+            <td>{{p.opis}}</td>
+            <td>{{p.plata?.iznos}}</td>
+            <!-- <td>{{p.plata?.datumIsplate}}</td> -->
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,41 @@
+/* Glavni kontejner koji centrira formu */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+/* Forma koja se centrira i ima ograničenu širinu */
+.example-form {
+    min-width: 150px;
+    max-width: 600px;
+    width: 100%;
+}
+
+/* Centriran naslov forme */
+.form-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Da svaki mat-form-field zauzima punu širinu forme */
+.example-full-width {
+    width: 100%;
+}
+
+/* Centriranje dugmeta */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Margin između inputa */
+input {
+    margin: 10px 0;
+}
+
+form {
+    margin-top: 20px;
+}

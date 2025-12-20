@@ -1,0 +1,32 @@
+<!-- <p>Ulogovan: {{loginService.validateRoles(['ROLE_USER', 'ROLE_ADMIN'])}}</p> -->
+<div class="wrapper">
+
+    <h2>{{title}}</h2>
+    <form [formGroup]="loginForma" class="example-form">
+        <div>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Username</mat-label>
+                <input matInput name="username" formControlName="korisnickoIme" type="text" required>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="example-full-width">
+
+                <mat-label>Password</mat-label>
+                <input matInput name="lozinka" formControlName="lozinka" type="password" required>
+            </mat-form-field>
+        </div>
+
+        <div class="example-label">
+            <div class="example-button-row">
+                <button mat-flat-button color="primary" (click)="login()" type="submit" mat-raised-button
+                    color="primary">Login</button>
+                <button mat-flat-button color="primary" *ngIf="loginService.user"
+                    (click)="loginService.logout()">Logout</button>
+            </div>
+        </div>
+    </form>
+    <p *ngIf="loginFailed">Login failed!</p>
+</div>
+<!-- <p *ngIf="loginService.logout">Successfully logged out!</p> -->

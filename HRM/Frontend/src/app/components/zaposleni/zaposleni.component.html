@@ -1,0 +1,85 @@
+<h1>Lista Zaposlenih</h1>
+
+<!-- <app-generic-table *ngIf="loginService.validateRoles(['ADMINISTRATOR'])" [tableData]="headArray" [GridArray]="entities"
+    (view)="odsek($event)" [showViewButton]="true" [showIzmeniDugme]="false"
+    [showUkloniDugme]="false"></app-generic-table> -->
+<!-- odsek -->
+<div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+
+    <!-- Pretraga -->
+    <div style="flex: 1; min-width: 250px;">
+        <h3>Pretraga</h3>
+        <mat-form-field appearance="fill" class="example-full-width">
+            <mat-label>Ime</mat-label>
+            <input matInput [(ngModel)]="imeZaPretragu" name="ime" placeholder="Unesi ime">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="example-full-width">
+            <mat-label>Prezime</mat-label>
+            <input matInput [(ngModel)]="prezimeZaPretragu" name="prezime" placeholder="Unesi prezime">
+        </mat-form-field>
+
+        <div>
+            <button mat-raised-button color="primary" (click)="pretraziZaposlene()">Pretraži</button>
+            <button mat-raised-button color="warn" (click)="resetujPretragu()">Resetuj</button>
+        </div>
+    </div>
+
+    <!-- Filter -->
+    <div style="flex: 1; min-width: 250px;">
+        <h3>Filtriranje</h3>
+        <mat-form-field appearance="fill" class="example-full-width">
+            <mat-label>Odsek</mat-label>
+            <mat-select [(ngModel)]="odsekIdZaPretragu" name="odsek">
+                <mat-option [value]="null">-- Odaberi odsek --</mat-option>
+                <mat-option *ngFor="let o of odseci" [value]="o.id">{{ o.naziv }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div>
+            <button mat-raised-button color="primary" (click)="pretraziZaposlene()">Filtriraj</button>
+            <button mat-raised-button color="warn" (click)="resetujFilter()">Resetuj</button>
+        </div>
+    </div>
+
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Email</th>
+            <th>Telefon</th>
+            <th>DatumRodjenja</th>
+            <th>DatumZaposlenja</th>
+            <th>KorisnickoIme</th>
+            <th>Odsek</th>
+            <th>Status</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let z of entities" [class.bold]="z.korisnickoIme === loggedInUsername">
+
+            <td>{{z.ime}}</td>
+            <td>{{z.prezime}}</td>
+            <td>{{z.email}}</td>
+            <td>{{z.telefon}}</td>
+            <td>{{z.datumRodjenja}}</td>
+            <td>{{z.datumZaposlenja}}</td>
+            <td>{{z.korisnickoIme}}</td>
+            <td *ngIf="z.odsek != null">{{z.odsek.naziv}}</td>
+            <td>{{z.statusZaposlenja}}</td>
+            <td *ngIf="z.korisnickoIme !== loggedInUsername">
+                <button mat-raised-button color="primary" (click)="delete(z.id!)">Ukloni</button>
+                <button mat-raised-button color="primary" (click)="unapredi(z)">Unapredi</button>
+            </td>
+
+        </tr>
+    </tbody>
+    <div class="wrapper">
+        <button mat-raised-button color="primary" routerLink="/zaposleni/dodaj">Dodaj zaposlenog</button>
+
+    </div>
+</table>

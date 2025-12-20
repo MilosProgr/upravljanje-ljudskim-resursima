@@ -1,0 +1,21 @@
+<table>
+    <thead>
+        <tr>
+            <th>Zaposleni</th>
+            <th>Datum</th>
+            <th>Vreme Dolaska</th>
+            <th>Vreme Odlaska</th>
+            <th>Tip</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let r of radnoVreme">
+            <td>{{r.zaposleni.korisnickoIme}}</td>
+            <td>{{r.datum}}</td>
+            <td>{{r.vremeDolaska}}</td>
+            <td>{{r.vremeOdlaska}}</td>
+            <td>{{r.tipRadnogVremena}}</td>
+        </tr>
+    </tbody>
+</table>
+<!-- <button (click)="dodajRadnoVreme($event)">Dodaj</button> -->

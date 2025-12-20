@@ -1,0 +1,19 @@
+<table>
+    <thead>
+        <tr>
+            <th>Zaposleni</th>
+            <th>Naziv</th>
+            <th>Opis</th>
+            <th>Datum Odrzavanja</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let o of obuke">
+            <td>{{o.zaposleni.korisnickoIme}}</td>
+            <td>{{o.naziv}}</td>
+            <td>{{o.opis}}</td>
+            <td>{{o.datumOdrzavanja}}</td>
+        </tr>
+    </tbody>
+</table>
+<button mat-raised-button color="primary" routerLink="/obuke/dodaj">Dodaj Obuku</button>

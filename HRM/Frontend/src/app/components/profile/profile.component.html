@@ -1,0 +1,19 @@
+<mat-card class="profile-card">
+    <picture>
+        <source media='(min-width:0px)'
+            srcset="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?t=st=1745004172~exp=1745007772~hmac=d4eafc181cecd280a717bf49dd339e92ecb31b11c5d72c6e060f550627e0ff8b&w=826">
+        <img mat-card-image src="" alt="User photo" width="100px" height="100px">
+    </picture>
+    <mat-card-header>
+        <mat-card-title> Puno Ime: {{ user?.ime }} - {{ user?.prezime }}</mat-card-title>
+        <mat-card-content></mat-card-content>
+        <mat-card-subtitle>Korisnicko Ime:{{ user?.korisnickoIme }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <p><strong>Email:</strong> {{ user?.email }}</p>
+        <!-- <p><strong>Uloge:</strong> {{ user?.roles?.join(', ') }}</p> -->
+    </mat-card-content>
+
+    <button mat-flat-button (click)="edituj(user)">Edit</button>
+</mat-card>

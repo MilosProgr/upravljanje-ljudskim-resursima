@@ -1,0 +1,41 @@
+<div class="wrapper">
+
+    <form class="example-form" (ngSubmit)="handleFormSubmit()">
+        <div>
+
+            <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label for="zaposleni">Zaposleni:</mat-label>
+                <mat-select [(ngModel)]="izabranZaposlenId" name="zaposleni" required>
+                    <mat-option *ngFor="let z of zaposleni" [value]="z.id">{{ z.ime }} {{ z.prezime }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div>
+
+            <mat-form-field appearance="fill" class="example-full-width">
+
+                <mat-label for="projekat">Projekat:</mat-label>
+                <mat-select [(ngModel)]="izabranProjekatId" name="projekat" required>
+                    <mat-option *ngFor="let p of projekti" [value]="p.id">{{ p.naziv }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div>
+
+            <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label for="uloga">Uloga:</mat-label>
+                <input matInput type="text" [(ngModel)]="uloga" name="uloga" required />
+            </mat-form-field>
+        </div>
+
+        <div class="wrapper">
+            <button mat-raised-button color="primary" type="submit"
+                [disabled]="!izabranZaposlenId || !izabranProjekatId || !uloga.trim()">
+                Dodaj zaduženje
+            </button>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,23 @@
+<table>
+    <thead>
+        <tr>
+            <th>Zaposleni</th>
+            <th>Projekat</th>
+            <th>Uloga</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let z of zaduzenja">
+            <td>
+                <!-- {{ z.zaposleni.ime }} {{ z.zaposleni.prezime }}<br> -->
+                {{ z.zaposleni.korisnickoIme }}
+            </td>
+            <td>{{ z.projekat.naziv }}</td>
+            <td>{{ z.uloga }}</td>
+            <td><button mat-raised-button color="warn" (click)="delete(z.id!)">Ukloni</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<button mat-raised-button color="primary" (click)="dodajZaduzenje($event)">Dodaj Zaduzenje</button>

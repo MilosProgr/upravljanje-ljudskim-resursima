@@ -1,0 +1,30 @@
+<div class="wrapper">
+
+    <form *ngIf="zaposlen" class="example-form">
+
+        <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>Korisnicko Ime:</mat-label>
+                <input matInput [(ngModel)]="zaposlen.korisnickoIme" name="korisnickoIme" />
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>Email:</mat-label>
+                <input matInput [(ngModel)]="zaposlen.email" name="email" />
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>Lozinka:</mat-label>
+                <input matInput [(ngModel)]="zaposlen.lozinka" name="lozinka" type="password" />
+            </mat-form-field>
+        </div>
+        <!-- Dodaj ostala polja po potrebi -->
+        <div class="wrapper">
+            <button mat-flat-button color="primary" (click)="sacuvajIzmene()">Sačuvaj</button>
+        </div>
+    </form>
+</div>

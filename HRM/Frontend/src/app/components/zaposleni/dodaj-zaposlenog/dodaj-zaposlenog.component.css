@@ -1,0 +1,11 @@
+.input-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.input-item {
+    flex: 1 1 calc(25% - 1rem);
+    min-width: 200px;
+}

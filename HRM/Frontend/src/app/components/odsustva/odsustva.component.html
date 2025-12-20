@@ -1,0 +1,25 @@
+<table>
+    <thead>
+        <tr>
+            <th>Zaposlen</th>
+            <th>Tip</th>
+            <th>Datum Pocetka</th>
+            <th>Datum Kraja</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let o of odsustva">
+            <td>{{o.zaposleni.korisnickoIme}}</td>
+            <td>{{o.tip}}</td>
+            <td>{{o.datumPocetka}}</td>
+            <td>{{o.datumKraja}}</td>
+            <td>
+                <button mat-raised-button color="primary" *ngIf="o.odobrio == undefined"
+                    (click)="odobri(o)">Odobri</button>
+                <button mat-raised-button color="primary" *ngIf="o.odobrio == undefined"
+                    (click)="odbi(o.id)">Odbi</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

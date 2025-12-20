@@ -1,0 +1,42 @@
+<p>generic-reusable-forms works!</p>
+
+<form *ngIf="loginService.validateRoles(['ROLE_ADMIN'])" [formGroup]="forma">
+    <div *ngFor="let field of formMetadata">
+        <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 16px;">
+            <mat-label>{{ field.label }}</mat-label>
+            <ng-container [ngSwitch]="field.type">
+                <!-- Text input -->
+                <input *ngSwitchCase="'text'" matInput [formControlName]="field.name" type="text"
+                    [required]="field.required">
+
+                <!-- Number input -->
+                <input *ngSwitchCase="'number'" matInput [formControlName]="field.name" type="number"
+                    [required]="field.required">
+
+                <!-- Date input -->
+                <input *ngSwitchCase="'date'" matInput [formControlName]="field.name" type="date"
+                    [required]="field.required">
+
+                <!-- Select input -->
+                <!-- Select input -->
+                <mat-select *ngSwitchCase="'select'" [formControlName]="field.name">
+                    <mat-option *ngFor="let option of selectOptions[field.name]" [value]="option.value">
+                        {{ option.label }}
+                    </mat-option>
+                </mat-select>
+            </ng-container>
+        </mat-form-field>
+    </div>
+
+    <!-- Buttons -->
+    <button type="button" (click)="create()" mat-raised-button
+        color="{{ forma.get('id')?.value ? 'primary' : 'accent' }}">
+        {{ forma.get('id')?.value ? 'Izmeni' : 'Dodaj' }}
+    </button>
+
+    <button type="button" (click)="pretrazi()" mat-raised-button *ngIf="showSearchButton">Pretrazi</button>
+
+    <button type="button" (click)="forma.reset()" mat-raised-button color="warn">
+        Reset
+    </button>
+</form>

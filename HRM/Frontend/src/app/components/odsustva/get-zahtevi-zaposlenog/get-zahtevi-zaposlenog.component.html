@@ -1,0 +1,24 @@
+<div *ngIf="odsustva.length > 0; else nemaZahteva">
+    <table>
+        <thead>
+            <tr>
+                <th>Datum početka</th>
+                <th>Datum kraja</th>
+                <th>Odobrio</th>
+                <th>Tip</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let o of odsustva">
+                <td>{{ o.datumPocetka }}</td>
+                <td>{{ o.datumKraja }}</td>
+                <td>{{ o.odobrio ? o.odobrio.korisnickoIme : 'Odobrenje u toku' }}</td>
+                <td>{{ o.tip }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #nemaZahteva>
+    <p>Trenutno nemate podnetih zahteva za odsustvo.</p>
+</ng-template>

@@ -1,0 +1,160 @@
+<div class="form-container">
+    <form [formGroup]="forma" (ngSubmit)="handleSubmit()">
+
+        <!-- Red 1 -->
+        <div class="input-row">
+            <mat-form-field appearance="fill" class="input-item">
+                <mat-label>Ime</mat-label>
+                <input matInput type="text" formControlName="ime" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="input-item">
+                <mat-label>Prezime</mat-label>
+                <input matInput type="text" formControlName="prezime" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="input-item">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="input-item">
+                <mat-label>Telefon</mat-label>
+                <input matInput type="text" formControlName="telefon" />
+            </mat-form-field>
+        </div>
+
+        <!-- Red 2 -->
+        <div class="input-row">
+            <mat-form-field appearance="fill" class="input-item">
+                <mat-label>Korisničko ime</mat-label>
+                <input matInput type="text" formControlName="korisnickoIme" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="input-item">
+                <mat-label>Lozinka</mat-label>
+                <input matInput type="password" formControlName="lozinka" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="input-item">
+                <mat-label>Pol (M/Z)</mat-label>
+                <input matInput type="text" formControlName="pol" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="input-item">
+                <mat-label>Status zaposlenja</mat-label>
+                <mat-select formControlName="statusZaposlenja">
+                    <mat-option *ngFor="let status of statusiZaposlenja" [value]="status.value">
+                        {{ status.viewValue }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <!-- Red 3 -->
+        <div class="input-row">
+            <mat-form-field appearance="fill" class="input-item">
+                <mat-label>Datum rođenja</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="datumRodjenja" />
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="input-item">
+                <mat-label>Datum zaposlenja</mat-label>
+                <input matInput [matDatepicker]="picker2" formControlName="datumZaposlenja" />
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+
+            <div class="input-item"></div>
+            <div class="input-item"></div>
+        </div>
+
+        <!-- Kreiranje adrese -->
+        <div class="input-row">
+            <mat-checkbox [(ngModel)]="kreirajNovuAdresu" [ngModelOptions]="{ standalone: true }">
+                Kreiraj novu adresu
+            </mat-checkbox>
+        </div>
+
+        <div *ngIf="kreirajNovuAdresu; else postojecaAdresa">
+            <h4>Unesite novu adresu:</h4>
+
+            <div class="input-row">
+                <mat-form-field class="input-item">
+                    <mat-label>Ulica</mat-label>
+                    <input matInput type="text" formControlName="ulica" />
+                </mat-form-field>
+
+                <mat-form-field class="input-item">
+                    <mat-label>Broj</mat-label>
+                    <input matInput type="text" formControlName="broj" />
+                </mat-form-field>
+
+                <mat-form-field class="input-item">
+                    <mat-label>Grad</mat-label>
+                    <input matInput type="text" formControlName="grad" />
+                </mat-form-field>
+
+                <mat-form-field class="input-item">
+                    <mat-label>Poštanski broj</mat-label>
+                    <input matInput type="text" formControlName="postanskiBroj" />
+                </mat-form-field>
+            </div>
+
+            <div class="input-row">
+                <mat-form-field class="input-item">
+                    <mat-label>Država</mat-label>
+                    <input matInput type="text" formControlName="drzava" />
+                </mat-form-field>
+
+                <div class="input-item"></div>
+                <div class="input-item"></div>
+                <div class="input-item"></div>
+            </div>
+        </div>
+
+        <!-- Postojeća adresa -->
+        <ng-template #postojecaAdresa>
+            <h4>Izaberite postojeću adresu:</h4>
+            <div class="input-row">
+                <mat-form-field class="input-item">
+                    <mat-label>Adresa</mat-label>
+                    <mat-select formControlName="selectedAdresaId">
+                        <mat-option [value]="null" disabled>-- Izaberi adresu --</mat-option>
+                        <mat-option *ngFor="let adresa of adrese" [value]="adresa.id">
+                            {{ adresa.ulica }} {{ adresa.broj }}, {{ adresa.grad }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="input-item"></div>
+                <div class="input-item"></div>
+                <div class="input-item"></div>
+            </div>
+        </ng-template>
+
+        <!-- Odsek -->
+        <div class="input-row">
+            <mat-form-field class="input-item">
+                <mat-label>Odsek</mat-label>
+                <mat-select formControlName="selectedOdsek">
+                    <mat-option [value]="null" disabled>-- Izaberi odsek --</mat-option>
+                    <mat-option *ngFor="let odsek of odseci" [value]="odsek">
+                        {{ odsek.naziv }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="input-item"></div>
+            <div class="input-item"></div>
+            <div class="input-item"></div>
+        </div>
+
+        <!-- Submit -->
+        <div style="margin-top: 20px;">
+            <button mat-flat-button color="primary" type="submit" [disabled]="forma.invalid">
+                Dodaj
+            </button>
+        </div>
+    </form>
+</div>

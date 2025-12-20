@@ -1,0 +1,43 @@
+<div class="wrapper">
+    <form class="example-form" [formGroup]="forma" (ngSubmit)="handleSubmit()">
+        <div>
+            <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Naziv:</mat-label>
+                <input matInput type="text" formControlName="naziv" />
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Opis:</mat-label>
+                <input matInput type="text" formControlName="opis" />
+            </mat-form-field>
+        </div>
+
+
+        <div>
+            <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>DatumPocetka:</mat-label>
+                <input matInput [matDatepicker]="pickerD" formControlName="datumPocetka" />
+                <mat-datepicker-toggle matSuffix [for]="pickerD"></mat-datepicker-toggle>
+                <mat-datepicker #pickerD></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+
+        <div>
+            <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>DatumKraja:</mat-label>
+                <input matInput [matDatepicker]="pickerKraj" formControlName="datumKraja" />
+                <mat-datepicker-toggle matSuffix [for]="pickerKraj"></mat-datepicker-toggle>
+                <mat-datepicker #pickerKraj></mat-datepicker>
+            </mat-form-field>
+
+        </div>
+
+        <div class="wrapper">
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="forma.invalid">Dodaj</button>
+        </div>
+    </form>
+</div>

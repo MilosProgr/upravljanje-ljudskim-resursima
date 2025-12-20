@@ -1,0 +1,14 @@
+<table>
+    <thead>
+        <tr>
+            <th>Projekat</th>
+            <th>Uloga</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let z of mojaZaduzenja">
+            <td>{{z.projekat.naziv}}</td>
+            <td>{{z.uloga}}</td>
+        </tr>
+    </tbody>
+</table>

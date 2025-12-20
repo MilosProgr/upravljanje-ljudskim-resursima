@@ -1,0 +1,32 @@
+<div *ngIf="trenutniZaposlen">
+    <h2>Promeni poziciju zaposlenog</h2>
+
+    <form (ngSubmit)="handleFormSubmit()" #form="ngForm">
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Ime</mat-label>
+            <input [readonly]="true" matInput type="text" [value]="trenutniZaposlen.ime" readonly />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Prezime</mat-label>
+            <input [readonly]="true" matInput type="text" [value]="trenutniZaposlen.prezime" readonly />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Email</mat-label>
+            <input [readonly]="true" matInput type="text" [value]="trenutniZaposlen.email" readonly />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Nova pozicija</mat-label>
+            <mat-select [(ngModel)]="izabranaPozicijaId" name="novaPozicija" required>
+                <mat-option *ngFor="let poz of pozicije" [value]="poz.id">{{ poz.naziv }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="!form.form.valid">
+            Unapredi
+        </button>
+    </form>
+</div>

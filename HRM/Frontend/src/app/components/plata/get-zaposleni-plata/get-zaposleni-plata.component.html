@@ -1,0 +1,27 @@
+<div *ngIf="plata; else nemaPlate">
+    <table>
+        <thead>
+            <tr>
+                <th>Iznos</th>
+                <th>Datum isplate</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ plata.iznos }} EUR</td>
+                <td>{{ plata.datumIsplate }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="isUplacena === true" style="margin-top: 10px; color: green;">
+        ✅ Plata je uplaćena na račun.
+    </div>
+    <div *ngIf="isUplacena === false" style="margin-top: 10px; color: red;">
+        ⏳ Plata još nije uplaćena na račun.
+    </div>
+</div>
+
+<ng-template #nemaPlate>
+    <p>Plata nije pronađena ili korisnik nije ulogovan.</p>
+</ng-template>

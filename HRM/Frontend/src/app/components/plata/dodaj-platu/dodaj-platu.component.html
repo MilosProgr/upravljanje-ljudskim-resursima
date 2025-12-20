@@ -1,0 +1,19 @@
+<div class="form-container">
+    <form [formGroup]="forma" (ngSubmit)="handleFormSubmit()">
+        <!-- 
+        <label for="zaposleni">Zaposleni:</label>
+        <select [(ngModel)]="izabranZaposlenId" formControlName="zaposleni" required>
+            <option *ngFor="let z of zaposleni" [value]="z.id">{{ z.ime }} {{ z.prezime }}</option>
+        </select> -->
+
+        <label for="iznos">Iznos</label>
+        <input type="number" formControlName="iznos">
+
+        <label for="datumIsplate">Datum Isplate</label>
+        <input type="date" formControlName="datumIsplate">
+
+        <button type="submit" [disabled]="forma.invalid">Dodaj</button>
+
+
+    </form>
+</div>

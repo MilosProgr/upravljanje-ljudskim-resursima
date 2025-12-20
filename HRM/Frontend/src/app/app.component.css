@@ -1,0 +1,25 @@
+.login-button {
+    width: 50%;
+    height: 55px;
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #1859c9;
+    cursor: pointer;
+}
+
+
+.button-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* zauzima celu visinu stranice */
+}
+
+.login-button {
+    font-size: 18px;
+    padding: 12px 24px;
+}

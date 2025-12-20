@@ -1,0 +1,15 @@
+<table>
+    <thead>
+        <tr>
+            <th>Iznos</th>
+            <th>Datum Isplate</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of plate">
+            <td>{{p.iznos}}</td>
+            <td>{{p.datumIsplate}}</td>
+        </tr>
+    </tbody>
+</table>
+<button (click)="dodajPlatu($event)">Dodaj Platu</button>

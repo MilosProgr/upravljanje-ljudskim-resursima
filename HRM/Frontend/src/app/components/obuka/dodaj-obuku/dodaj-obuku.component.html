@@ -1,0 +1,50 @@
+<div class="wrapper">
+
+
+    <form class="example-form" [formGroup]="obukaForm" (ngSubmit)="onSubmit()">
+
+        <div>
+            <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Naziv obuke:</mat-label>
+                <input matInput type="text" formControlName="naziv" />
+            </mat-form-field>
+        </div>
+
+        <div>
+
+            <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Opis:</mat-label>
+                <textarea matInput formControlName="opis"></textarea>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Datum održavanja:</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="datumOdrzavanja" />
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div>
+
+            <mat-form-field appearance="fill" class="example-full-width">
+
+                <mat-label>Zaposleni:</mat-label>
+                <mat-select formControlName="zaposleni">
+                    <mat-option [value]="null" disabled selected>-- Izaberi zaposlenog --</mat-option>
+                    <mat-option *ngFor="let z of zaposleni" [value]="z.id">
+                        {{ z.ime }} {{ z.prezime }} - {{ z.email }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="wrapper">
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="obukaForm.invalid">Dodaj</button>
+        </div>
+
+
+    </form>
+</div>

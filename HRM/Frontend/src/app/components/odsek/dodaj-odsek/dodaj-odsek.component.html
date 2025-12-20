@@ -1,0 +1,24 @@
+<div class="wrapper">
+    <form class="example-form" [formGroup]="odsekForm" (ngSubmit)="onSubmit()">
+        <div>
+
+            <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Naziv</mat-label>
+                <input matInput type="text" formControlName="naziv" />
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="fill" class="example-full-width">
+
+                <mat-label>Opis:</mat-label>
+                <textarea matInput formControlName="opis"></textarea>
+            </mat-form-field>
+        </div>
+
+        <div class="wrapper">
+            <button mat-raised-button color="primary" type="submit" [disabled]="odsekForm.invalid">Dodaj</button>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,40 @@
+<div class="container">
+    <form class="example-form" [formGroup]="odsustvoForm" (ngSubmit)="onSubmit()">
+        <h2 class="form-title">Dodavanje odsustva</h2>
+
+        <input type="hidden" formControlName="zaposleni" />
+
+        <div>
+            <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label for="tip">Tip odsustva:</mat-label>
+                <mat-select formControlName="tip">
+                    <mat-option *ngFor="let t of tipoviOdsustva" [value]="t">{{ t }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label for="datumPocetka">Datum početka:</mat-label>
+                <input matInput [matDatepicker]="pickerPocetak" formControlName="datumPocetka" />
+                <mat-datepicker-toggle matSuffix [for]="pickerPocetak"></mat-datepicker-toggle>
+                <mat-datepicker #pickerPocetak></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label for="datumKraja">Datum kraja:</mat-label>
+                <input matInput [matDatepicker]="pickerKraj" formControlName="datumKraja" />
+                <mat-datepicker-toggle matSuffix [for]="pickerKraj"></mat-datepicker-toggle>
+                <mat-datepicker #pickerKraj></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="button-container">
+            <button mat-raised-button color="primary" type="submit" [disabled]="odsustvoForm.invalid">
+                Pošalji
+            </button>
+        </div>
+    </form>
+</div>

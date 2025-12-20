@@ -1,0 +1,40 @@
+<div class="div1 d-flex flex-column flex-shrink-0 p-3 bg-light justify-content-start">
+
+    <ul class="nav flex-column mb-auto">
+
+        <!-- ADMINISTRATOR sekcija -->
+        <ng-container *ngIf="proveraUloge('ADMINISTRATOR')">
+            <li><a routerLink="/zaposleni" class="nav-link">Lista zaposlenih</a></li>
+            <li><a routerLink="/odseci" class="nav-link">Odseci</a></li>
+            <li><a routerLink="/projekti" class="nav-link">Projekti</a></li>
+            <!-- <li><a routerLink="/adrese" class="nav-link">Adrese</a></li> -->
+            <!-- <li><a routerLink="/plate" class="nav-link">Upravljanje platama</a></li> -->
+            <li><a routerLink="/zaduzenja" class="nav-link">Zaduzenja</a></li>
+            <li><a routerLink="/radnoVreme" class="nav-link">Upravljanje radnim vremenom</a></li>
+            <li><a routerLink="/projekti" class="nav-link">Pregled projekata</a></li>
+            <li><a routerLink="/obuke" class="nav-link">Obuke</a></li>
+            <li><a routerLink="/pozicije" class="nav-link">Pozicije</a></li>
+            <li><a routerLink="/odsustva" class="nav-link">Odsustva</a></li>
+        </ng-container>
+
+
+        <ng-container *ngIf="proveraUloge('RADNIK')">
+            <li><a routerLink="/moje-obuke" class="nav-link">Moje obuke</a></li>
+            <li><a routerLink="/plataIsplata" class="nav-link">Moja plata</a></li>
+            <li><a routerLink="/moja-zaduzenja" class="nav-link">Moja zaduženja</a></li>
+            <li><a routerLink="/moji-zahtevi" class="nav-link">Moji zahtevi</a></li>
+            <li><a routerLink="/odsustva/dodaj" class="nav-link">Zahtev za odsustvo</a></li>
+            <li><a routerLink="/radnoVremeZaposlen" class="nav-link">Radno vreme</a></li>
+
+        </ng-container>
+
+
+        <ng-container *ngIf=" proveraUloge('ADMINISTRATOR') || proveraUloge('RADNIK')">
+            <li><a routerLink="/profil" class="nav-link">Profil</a></li>
+
+        </ng-container>
+
+
+    </ul>
+
+</div>
