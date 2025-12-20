@@ -5,19 +5,22 @@ import { exhaustMap, switchMap, take } from 'rxjs/operators';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const loginService = inject(LoginService);
-  const storedToken = localStorage.getItem('token'); // Get token from storage
+  const storedToken = localStorage.getItem('token');
 
   return loginService.token$.pipe(
     take(1),
     switchMap(token => {
-      const finalToken = token || storedToken; // Use either the latest or stored token
-      if (finalToken) {
+      const finalToken = token ?? storedToken;
+
+      if (typeof finalToken === 'string' && finalToken.trim().length > 0) {
         const clonedRequest = req.clone({
-          setHeaders: { Authorization: `${finalToken}` }
+          setHeaders: {
+            Authorization: ` ${finalToken}`
+          }
         });
         return next(clonedRequest);
       }
-      console.warn("No token found, sending request without authorization header.");
+
       return next(req);
     })
   );

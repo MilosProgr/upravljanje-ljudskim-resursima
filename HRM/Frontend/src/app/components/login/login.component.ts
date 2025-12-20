@@ -5,6 +5,7 @@ import { LoginService } from '../../services/login/login.service';
 import { NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -28,22 +29,28 @@ export class LoginComponent {
   ngOnInit(): void { }
 
   //Login
-  login() {
-    if (this.loginForma.valid) {
-      this.loginService.login(this.loginForma.value).subscribe(
+  async login() {
+    if (!this.loginForma.valid) return;
 
-        (res: any) => {
-          console.log("Odgovor:", res)
-          if (res) {//res.token
-            console.log("Working")
-            this.router.navigate(['/home']);
+    try {
+      const user = this.loginForma.value;
 
-          } else {
-            console.log("Greska: ", res.message)
-            this.loginFailed = true;
-          }
-        },
-      );
+      // Pretvaramo Observable u Promise
+      const res: any = await firstValueFrom(this.loginService.login(user));
+
+      console.log('Odgovor iz servisa:', res);
+
+      if (res?.token) {
+        console.log('Token primljen, redirect na /home');
+        this.router.navigate(['/home']);
+        this.loginFailed = false;
+      } else {
+        console.log('Login failed', res);
+        this.loginFailed = true;
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      this.loginFailed = true;
     }
   }
 }
