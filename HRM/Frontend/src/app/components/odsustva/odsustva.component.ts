@@ -36,7 +36,7 @@ export class OdsustvaComponent extends GenericCrudComponent<Odsustvo> {
     { 'Head': 'Zaposleni', 'FieldName': 'zaposleni.korisnickoIme' },
     { 'Head': 'Tip', 'FieldName': 'tip' },
     { 'Head': 'Datum Pocetka', 'FieldName': 'datumPocetka' },
-    { 'Head': 'Datum Kraja', 'FieldName': 'datumKraja', value: (row: any) => row.zaposleni?.korisnickoIme },
+    { 'Head': 'Datum Kraja', 'FieldName': 'datumKraja' },
 
 
   ]
