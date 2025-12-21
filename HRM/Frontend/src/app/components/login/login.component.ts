@@ -40,7 +40,7 @@ export class LoginComponent {
 
       console.log('Odgovor iz servisa:', res);
 
-      if (res?.token) {
+      if (res) {
         console.log('Token primljen, redirect na /home');
         this.router.navigate(['/home']);
         this.loginFailed = false;

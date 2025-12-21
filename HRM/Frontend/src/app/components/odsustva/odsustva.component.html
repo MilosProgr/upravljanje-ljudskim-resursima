@@ -1,4 +1,4 @@
-<table>
+<!-- <table>
     <thead>
         <tr>
             <th>Zaposlen</th>
@@ -9,17 +9,29 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let o of odsustva">
-            <td>{{o.zaposleni.korisnickoIme}}</td>
-            <td>{{o.tip}}</td>
-            <td>{{o.datumPocetka}}</td>
-            <td>{{o.datumKraja}}</td>
+      
+        <tr *ngFor="let o of entities || []">
+            <td>{{ o.zaposleni.korisnickoIme }}</td>
+            <td>{{ o.tip }}</td>
+            <td>{{ o.datumPocetka }}</td>
+            <td>{{ o.datumKraja }}</td>
             <td>
-                <button mat-raised-button color="primary" *ngIf="o.odobrio == undefined"
-                    (click)="odobri(o)">Odobri</button>
-                <button mat-raised-button color="primary" *ngIf="o.odobrio == undefined"
-                    (click)="odbi(o.id)">Odbi</button>
+                <button mat-raised-button color="primary" *ngIf="!o.odobrio" (click)="odobri(o)">Odobri</button>
+                <button mat-raised-button color="warn" *ngIf="!o.odobrio" (click)="odbi(o.id!)">Odbi</button>
             </td>
         </tr>
     </tbody>
 </table>
+
+
+<! Paginação -->
+<div class="pagination">
+    <button mat-button (click)="prethodnaStrana()" [disabled]="pageNumber === 0">Prethodna</button>
+    <span>Strana {{ pageNumber + 1 }} od {{ totalPages }}</span>
+    <button mat-button (click)="sledecaStrana()" [disabled]="pageNumber + 1 >= totalPages">Sledeca</button>
+</div>
+
+<app-generic-table [GridArray]="entities" [tableData]="headArray" (odobri)="odobri($event) " [showOdobriDugme]="true"
+    (odbi)="odbi($event)" [showOdbiDugme]="true" [showIzmeniDugme]="false" [showUkloniDugme]="false"
+    [showViewButton]="false">
+</app-generic-table>

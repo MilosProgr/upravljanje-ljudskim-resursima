@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CrudService } from './generic-service';
+import { Resourse } from './generic_hateoas/resourse';
+import { PagedHateoasResponse } from './generic_hateoas/pagesHateoasResponse';
 
 
 @Component({
@@ -8,6 +10,11 @@ import { CrudService } from './generic-service';
 export abstract class GenericCrudComponent<T> implements OnInit {
     @Input() entities: T[] = [];
     selectedEntity: T | null = null;
+
+    pageNumber = 0;
+    pageSize = 10;
+    totalPages = 0;
+    totalElements = 0;
 
     constructor(
         private crudService: CrudService<T>,
@@ -42,5 +49,36 @@ export abstract class GenericCrudComponent<T> implements OnInit {
 
     edit(entity: T) {
         this.selectedEntity = { ...entity };
+    }
+    // HATEOAS / Paged
+    loadPagedEntities(): void {
+        this.crudService.getPaged(this.pageNumber, this.pageSize)
+            .subscribe(res => {
+
+                const page = res.data; // 🔥 KLJUČNO
+
+                this.entities = Array.isArray(page?.content) ? page.content : [];
+
+                this.entities = page.content;
+                this.pageNumber = page.pageNumber;
+                this.pageSize = page.pageSize;
+                this.totalPages = page.totalPages;
+                this.totalElements = page.totalElements;
+            });
+    }
+
+
+
+
+    loadResource(id: number): void {
+        this.crudService.getResource(id).subscribe((res: Resourse<T>) => {
+            this.selectedEntity = res.data;
+            // Ako želiš, možeš iskoristiti res.links za navigaciju
+        });
+    }
+
+    goToPage(page: number): void {
+        this.pageNumber = page;
+        this.loadPagedEntities();
     }
 }

@@ -1,6 +1,8 @@
 import { Injectable, InjectionToken, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Resourse } from './generic_hateoas/resourse';
+import { PagedHateoasResponse } from './generic_hateoas/pagesHateoasResponse';
 // import { } from '../environments/environment';
 
 // Define an InjectionToken for the base URL
@@ -34,5 +36,16 @@ export class CrudService<T> {
 
     delete(id: number): Observable<void> {
         return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
+    }
+
+    // HATEOAS / Paged
+    getResource(id: number): Observable<Resourse<T>> {
+        return this.httpClient.get<Resourse<T>>(`${this.baseUrl}/${id}`);
+    }
+
+    getPaged(page = 0, size = 10): Observable<Resourse<PagedHateoasResponse<T>>> {
+        return this.httpClient.get<Resourse<PagedHateoasResponse<T>>>(
+            `${this.baseUrl}/paged?page=${page}&size=${size}`
+        );
     }
 }

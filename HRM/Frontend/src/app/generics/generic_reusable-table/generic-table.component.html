@@ -10,24 +10,32 @@
     <!-- Other Columns -->
     <ng-container *ngFor="let header of tableData" [matColumnDef]="header.FieldName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ header.Head }} </th>
-        <td mat-cell *matCellDef="let row"> {{ row[header.FieldName] }} </td>
+        <td mat-cell *matCellDef="let row"> {{ getValue(row, header.FieldName) }} </td>
     </ng-container>
 
     <!-- Actions Column -->
-    <ng-container matColumnDef="actions" *ngIf="isAdmin">
+    <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Akcije </th>
         <td mat-cell *matCellDef="let row">
-            <button class="primary" mat-flat-button (click)="edit(row)" *ngIf="showIzmeniDugme">
-                izmeni
+            <button mat-flat-button color="primary" *ngIf="showIzmeniDugme" (click)="edit(row)">
+                Izmeni
             </button>
 
-            <button class="warn" mat-flat-button color="warn" (click)="delete(row.id)" *ngIf="showUkloniDugme">
-                ukloni
+            <button mat-flat-button color="warn" *ngIf="showUkloniDugme" (click)="delete(row.id)">
+                Ukloni
             </button>
-            <button class="primary" mat-flat-button color="primary" (click)="g_view(row)" *ngIf="showViewButton">
+
+            <button mat-flat-button *ngIf="showViewButton" (click)="g_view(row)">
                 View
             </button>
 
+            <button mat-flat-button *ngIf="showOdbiDugme  && canApprove(row)" (click)="reject(row.id)">
+                Odbi
+            </button>
+
+            <button mat-flat-button *ngIf="showOdobriDugme  && canApprove(row)" (click)="accept(row)">
+                Odobri
+            </button>
         </td>
     </ng-container>
 

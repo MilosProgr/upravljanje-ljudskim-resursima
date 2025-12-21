@@ -5,54 +5,52 @@ import { NgFor, NgIf } from '@angular/common';
 import { LoginService } from '../../services/login/login.service';
 import { ZaposleniService } from '../../services/zaposleni.service';
 import { MatButtonModule } from '@angular/material/button';
+import { GenericCrudComponent } from '../../generics/generic-component';
+import { GenericTableComponent } from '../../generics/generic_reusable-table/generic-table.component';
 
 @Component({
   selector: 'app-odsustva',
   standalone: true,
-  imports: [NgFor, NgIf, MatButtonModule],
+  imports: [NgFor, NgIf, MatButtonModule, GenericTableComponent],
   templateUrl: './odsustva.component.html',
   styleUrl: './odsustva.component.css'
 })
-export class OdsustvaComponent implements OnInit {
-
+export class OdsustvaComponent extends GenericCrudComponent<Odsustvo> {
 
   constructor(
     public odsustvoService: OdsustvoService,
     public loginService: LoginService,
-    public zaposleniService: ZaposleniService) { }
+    public zaposleniService: ZaposleniService
+  ) {
+    super(odsustvoService);
+  }
 
-  odsustva: Odsustvo[] = []
-  direktorId: any;
-
-  ngOnInit(): void {
-    this.getOdsustva();
-
+  override ngOnInit(): void {
     this.loginService.getUserProfile().subscribe(user => {
       this.loginService.user = user;
-      this.direktorId = this.odsustva.find((d => { d.id }))
-      console.log(this.direktorId)
+      this.loadPagedEntities();
     });
   }
 
-  getOdsustva() {
-    this.odsustvoService.getAll().subscribe(data => {
-      this.odsustva = data;
-      console.log(this.odsustva)
-    })
+  headArray = [
+    { 'Head': 'Zaposleni', 'FieldName': 'zaposleni.korisnickoIme' },
+    { 'Head': 'Tip', 'FieldName': 'tip' },
+    { 'Head': 'Datum Pocetka', 'FieldName': 'datumPocetka' },
+    { 'Head': 'Datum Kraja', 'FieldName': 'datumKraja', value: (row: any) => row.zaposleni?.korisnickoIme },
+
+
+  ]
+
+  odbi(id: number) {
+    this.odsustvoService.delete(id).subscribe(() => {
+      // Refrešuj GridArray posle brisanja
+      this.loadPagedEntities();
+    });
   }
 
-  odbi(id: number | undefined) {
-    this.odsustvoService.delete(id as number).subscribe(() => {
-      this.getOdsustva();
-    })
-  }
   odobri(odsustvo: Odsustvo) {
     const direktorId = this.loginService.user?.id;
-
-    if (!direktorId) {
-      alert("Greška: Niste ulogovani kao direktor.");
-      return;
-    }
+    if (!direktorId) return;
 
     const payload = {
       id: odsustvo.id,
@@ -63,23 +61,23 @@ export class OdsustvaComponent implements OnInit {
       odobrio: { id: direktorId }
     };
 
-
-
-
-    console.log("s", direktorId)
-
-    this.odsustvoService.update(odsustvo.id as number, payload).subscribe({
-      next: () => {
-        alert('Uspešno odobreno odsustvo.');
-        odsustvo.odobrio = { id: direktorId };
-
-        this.getOdsustva();
-      },
-      error: () => alert('Greška pri odobravanju odsustva.')
+    this.odsustvoService.update(odsustvo.id!, payload).subscribe(() => {
+      this.loadPagedEntities();
     });
-
-
   }
 
+  prethodnaStrana() {
+    if (this.pageNumber > 0) {
+      this.pageNumber--;
+      this.loadPagedEntities();
+    }
+  }
 
+  sledecaStrana() {
+    if (this.pageNumber + 1 < this.totalPages) {
+      this.pageNumber++;
+      this.loadPagedEntities();
+    }
+  }
 }
+

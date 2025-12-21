@@ -23,9 +23,17 @@ export class GenericTableComponent {
   @Output() stat = new EventEmitter<any>();
   @Output() view = new EventEmitter<any>();
 
+  @Output() odbi = new EventEmitter<any>();
+  @Output() odobri = new EventEmitter<any>();
+
+
   @Input() showViewButton: boolean = true;
   @Input() showUkloniDugme: boolean = true;
   @Input() showIzmeniDugme: boolean = true;
+
+  @Input() showOdbiDugme: boolean = true;
+  @Input() showOdobriDugme: boolean = true;
+
   @Input() prikaziAkcije: boolean = true;
 
 
@@ -48,15 +56,38 @@ export class GenericTableComponent {
     this.view.emit(item);
   }
 
+  reject(item: any) {
+    this.odbi.emit(item)
+  }
+
+  accept(item: any) {
+    this.odobri.emit(item)
+  }
+
   get isAdmin(): boolean {
     return this.loginService.validateRoles(['ADMINISTRATOR']);
   }
 
   get displayedColumns(): string[] {
     const columns = this.tableData.map(header => header.FieldName);
-    if (this.isAdmin) {
+
+    if (this.prikaziAkcije) {
       columns.push('actions');
     }
+
     return ['index', ...columns];
   }
+
+  getValue(row: any, field: string) {
+    if (!row || !field) return '';
+
+    return field
+      .split('.')
+      .reduce((acc, part) => acc?.[part], row);
+  }
+
+  canApprove(row: any): boolean {
+    return !row?.odobrio;
+  }
+
 }

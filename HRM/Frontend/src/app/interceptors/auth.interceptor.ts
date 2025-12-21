@@ -10,7 +10,16 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return loginService.token$.pipe(
     take(1),
     switchMap(token => {
-      const finalToken = token ?? storedToken;
+      let finalToken = token ?? storedToken;
+
+      // 🔴 AKO JE SLUČAJNO JSON STRING
+      if (finalToken?.startsWith('{')) {
+        try {
+          finalToken = JSON.parse(finalToken).token;
+        } catch {
+          finalToken = null;
+        }
+      }
 
       if (typeof finalToken === 'string' && finalToken.trim().length > 0) {
         const clonedRequest = req.clone({
@@ -25,5 +34,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     })
   );
 };
+
 
 
