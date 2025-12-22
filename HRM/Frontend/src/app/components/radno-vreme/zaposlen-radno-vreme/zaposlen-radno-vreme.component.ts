@@ -3,23 +3,35 @@ import { RadnoVremeService } from '../../../services/radno-vreme.service';
 import { RadnoVreme } from '../../../model/radno_vreme';
 import { CommonModule, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { GenericCrudComponent } from '../../../generics/generic-component';
+import { GenericTableComponent } from "../../../generics/generic_reusable-table/generic-table.component";
 
 @Component({
   selector: 'app-zaposlen-radno-vreme',
   standalone: true,
-  imports: [NgFor, CommonModule, MatButtonModule],
+  imports: [NgFor, CommonModule, MatButtonModule, GenericTableComponent],
   templateUrl: './zaposlen-radno-vreme.component.html',
   styleUrl: './zaposlen-radno-vreme.component.css'
 })
-export class ZaposlenRadnoVremeComponent implements OnInit {
-  constructor(private radnoVremeService: RadnoVremeService) { }
+export class ZaposlenRadnoVremeComponent extends GenericCrudComponent<RadnoVreme> implements OnInit {
+  constructor(private radnoVremeService: RadnoVremeService) {
+    super(radnoVremeService);
+  }
 
-  radnoVreme: RadnoVreme[] = [];
+  // radnoVreme: RadnoVreme[] = [];
 
   statusDolaska: boolean = false;
   statusOdlaska: boolean = false;
 
-  ngOnInit(): void {
+  headArray = [
+    { 'Head': 'Zaposleni', 'FieldName': 'zaposleni.korisnickoIme' },
+    { 'Head': 'Datum ', 'FieldName': 'datum' },
+    { 'Head': 'Vreme Dolaska', 'FieldName': 'vremeDolaska' },
+    { 'Head': 'Vreme Odlaska', 'FieldName': 'vremeOdlaska' },
+    { 'Head': 'Tip', 'FieldName': 'tip' },
+  ]
+
+  override ngOnInit(): void {
     this.refresh();
   }
 
@@ -58,12 +70,12 @@ export class ZaposlenRadnoVremeComponent implements OnInit {
     const danas = new Date().toLocaleDateString('sv-SE'); // "2025-06-16"
 
     this.radnoVremeService.dohvatiMojeRadnoVreme().subscribe(data => {
-      this.radnoVreme = data.filter((item: RadnoVreme) => {
+      this.entities = data.filter((item: RadnoVreme) => {
         const datum = new Date(item.datum).toLocaleDateString('sv-SE');
         return datum === danas;
       });
 
-      console.log("Radno vreme za danas:", this.radnoVreme);
+      console.log("Radno vreme za danas:", this.entities);
     });
   }
 

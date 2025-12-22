@@ -37,8 +37,6 @@ export class OdsustvaComponent extends GenericCrudComponent<Odsustvo> {
     { 'Head': 'Tip', 'FieldName': 'tip' },
     { 'Head': 'Datum Pocetka', 'FieldName': 'datumPocetka' },
     { 'Head': 'Datum Kraja', 'FieldName': 'datumKraja' },
-
-
   ]
 
   odbi(id: number) {

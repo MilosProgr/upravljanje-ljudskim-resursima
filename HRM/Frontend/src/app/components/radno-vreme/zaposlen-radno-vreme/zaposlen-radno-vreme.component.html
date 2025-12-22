@@ -1,5 +1,5 @@
 <div class="container">
-    <table *ngIf="radnoVreme.length > 0">
+    <!-- <table *ngIf="radnoVreme.length > 0">
         <thead>
             <tr>
                 <th>Zaposleni</th>
@@ -29,5 +29,15 @@
             [disabled]="!statusDolaska || statusOdlaska">
             Evidentiraj odlazak
         </button>
+    </div> -->
+    <div class="button-group">
+        <button mat-raised-button color="primary" (click)="evidentirajDolazak()" [disabled]="statusDolaska">
+            Evidentiraj dolazak
+        </button>
+        <button mat-raised-button color="primary" (click)="evidentirajOdlazak()"
+            [disabled]="!statusDolaska || statusOdlaska">
+            Evidentiraj odlazak
+        </button>
     </div>
+    <app-generic-table [GridArray]="entities" [tableData]="headArray"></app-generic-table>
 </div>

@@ -27,14 +27,14 @@ export class GenericTableComponent {
   @Output() odobri = new EventEmitter<any>();
 
 
-  @Input() showViewButton: boolean = true;
-  @Input() showUkloniDugme: boolean = true;
-  @Input() showIzmeniDugme: boolean = true;
+  @Input() showViewButton: boolean = false;
+  @Input() showUkloniDugme: boolean = false;
+  @Input() showIzmeniDugme: boolean = false;
 
-  @Input() showOdbiDugme: boolean = true;
-  @Input() showOdobriDugme: boolean = true;
+  @Input() showOdbiDugme: boolean = false;
+  @Input() showOdobriDugme: boolean = false;
 
-  @Input() prikaziAkcije: boolean = true;
+  @Input() prikaziAkcije: boolean = false;
 
 
   constructor(public loginService: LoginService) {
