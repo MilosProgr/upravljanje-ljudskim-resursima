@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CrudService } from './generic-service';
 import { Resourse } from './generic_hateoas/resourse';
-import { PagedHateoasResponse } from './generic_hateoas/pagesHateoasResponse';
 
 
 @Component({
