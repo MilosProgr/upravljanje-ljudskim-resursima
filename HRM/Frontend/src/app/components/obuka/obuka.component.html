@@ -1,4 +1,4 @@
-<table>
+<!-- <table>
     <thead>
         <tr>
             <th>Zaposleni</th>
@@ -15,5 +15,6 @@
             <td>{{o.datumOdrzavanja}}</td>
         </tr>
     </tbody>
-</table>
+</table> -->
+<app-generic-table [GridArray]="entities" [tableData]="headArray"></app-generic-table>
 <button mat-raised-button color="primary" routerLink="/obuke/dodaj">Dodaj Obuku</button>

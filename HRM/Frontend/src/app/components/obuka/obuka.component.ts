@@ -18,6 +18,12 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class ObukaComponent extends GenericCrudComponent<Obuka> implements OnInit {
 
+  headArray = [
+    { 'Head': 'Zaposleni', 'FieldName': 'zaposleni.korisnickoIme' },
+    { 'Head': 'Naziv', 'FieldName': 'naziv' },
+    { 'Head': 'Opis', 'FieldName': 'opis' },
+    { 'Head': 'Datum Odrzavanja', 'FieldName': 'datumOdrzavanja' },
+  ]
 
   constructor(private obukaService: ObukaService,
     private zaposlenService: ZaposleniService,
@@ -26,20 +32,21 @@ export class ObukaComponent extends GenericCrudComponent<Obuka> implements OnIni
     super(obukaService);
   }
 
-  obuke: Obuka[] = [];
+  // obuke: Obuka[] = [];
   zaposleni: Zaposleni[] = [];
 
   override ngOnInit(): void {
-    this.loadObuke();
+    // this.loadObuke();
+    this.loadPagedEntities();
     this.loadZaposleni();
   }
 
 
-  loadObuke() {
-    this.obukaService.getAll().subscribe((obuka => {
-      this.obuke = obuka;
-    }))
-  }
+  // loadObuke() {
+  //   this.obukaService.getAll().subscribe((obuka => {
+  //     this.obuke = obuka;
+  //   }))
+  // }
 
   loadZaposleni() {
     this.zaposlenService.getAll().subscribe((zaposlen => {

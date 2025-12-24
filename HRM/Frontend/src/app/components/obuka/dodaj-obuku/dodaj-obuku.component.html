@@ -33,7 +33,7 @@
                 <mat-label>Zaposleni:</mat-label>
                 <mat-select formControlName="zaposleni">
                     <mat-option [value]="null" disabled selected>-- Izaberi zaposlenog --</mat-option>
-                    <mat-option *ngFor="let z of zaposleni" [value]="z.id">
+                    <mat-option *ngFor="let z of zaposleni?.data?.content" [value]="z.id">
                         {{ z.ime }} {{ z.prezime }} - {{ z.email }}
                     </mat-option>
                 </mat-select>

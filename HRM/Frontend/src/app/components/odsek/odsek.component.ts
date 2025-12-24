@@ -5,11 +5,12 @@ import { NgFor } from '@angular/common';
 import { OdsekService } from '../../services/odsek.service';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { GenericTableComponent } from "../../generics/generic_reusable-table/generic-table.component";
 
 @Component({
   selector: 'app-odsek',
   standalone: true,
-  imports: [NgFor, RouterLink, MatButtonModule],
+  imports: [NgFor, RouterLink, MatButtonModule, GenericTableComponent],
   templateUrl: './odsek.component.html',
   styleUrl: './odsek.component.css'
 })

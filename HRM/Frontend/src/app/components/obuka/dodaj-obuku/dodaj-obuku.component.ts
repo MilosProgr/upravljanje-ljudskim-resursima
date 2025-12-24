@@ -12,6 +12,10 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { GenericCrudComponent } from '../../../generics/generic-component';
+import { Obuka } from '../../../model/obuka';
+import { Resourse } from '../../../generics/generic_hateoas/resourse';
+import { PagedHateoasResponse } from '../../../generics/generic_hateoas/pagesHateoasResponse';
 
 
 
@@ -23,19 +27,21 @@ import { Router } from '@angular/router';
   styleUrl: './dodaj-obuku.component.css',
   providers: [provideNativeDateAdapter()]
 })
-export class DodajObukuComponent implements OnInit {
+export class DodajObukuComponent extends GenericCrudComponent<Obuka> implements OnInit {
 
   obukaForm!: FormGroup;
-  zaposleni: Zaposleni[] = [];
+  zaposleni: Resourse<PagedHateoasResponse<Zaposleni>> | undefined;
 
   constructor(
     private fb: FormBuilder,
     private obukaService: ObukaService,
     private zaposlenService: ZaposleniService,
     private router: Router
-  ) { }
+  ) {
+    super(obukaService);
+  }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
     this.obukaForm = this.fb.group({
       zaposleni: ['', Validators.required],
       naziv: ['', Validators.required],
@@ -43,10 +49,11 @@ export class DodajObukuComponent implements OnInit {
       datumOdrzavanja: ['', Validators.required]
     });
     this.loadZaposleni();
+    this.loadPagedEntities()
   }
 
   loadZaposleni() {
-    this.zaposlenService.getAll().subscribe((data => {
+    this.zaposlenService.getPaged().subscribe((data => {
       this.zaposleni = data;
     }))
   }

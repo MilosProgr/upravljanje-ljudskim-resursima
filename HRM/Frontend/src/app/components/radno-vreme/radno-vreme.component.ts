@@ -15,13 +15,10 @@ import { GenericCrudComponent } from '../../generics/generic-component';
 })
 export class RadnoVremeComponent extends GenericCrudComponent<RadnoVreme> implements OnInit {
 
-  override ngOnInit(): void {
-    this.loadRVreme();
-  }
 
   headArray = [
     { 'Head': 'Zaposleni', 'FieldName': 'zaposleni.korisnickoIme' },
-    { 'Head': 'Datum ', 'FieldName': 'datum' },
+    { 'Head': 'Datum', 'FieldName': 'datum' },
     { 'Head': 'Vreme Dolaska', 'FieldName': 'vremeDolaska' },
     { 'Head': 'Vreme Odlaska', 'FieldName': 'vremeOdlaska' },
     { 'Head': 'Tip', 'FieldName': 'tip' },
@@ -34,9 +31,15 @@ export class RadnoVremeComponent extends GenericCrudComponent<RadnoVreme> implem
   ) {
     super(radnoVremeService);
   }
+
+  override ngOnInit(): void {
+    this.loadRVreme();
+  }
+
   loadRVreme() {
-    this.radnoVremeService.getAll().subscribe(vreme => {
-      this.entities = vreme;
+    this.radnoVremeService.getPaged().subscribe(vreme => {
+      this.entities = vreme.data.content;
+      console.log("Rezultat: ", this.entities)
     })
   }
 
