@@ -14,10 +14,5 @@ public class PlataDTO {
 			BigDecimal iznos) {}
 	
 	
-	public record PayrollCalculationRequest(
-		    Long zaposleniId,
-		    BigDecimal osnovnaPlata,
-		    long ukupnoRadnihSati,
-		    long odsustvoDana
-		) {}
+
 }
