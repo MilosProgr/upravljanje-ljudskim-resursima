@@ -6,14 +6,15 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
 import rc.ac.singidunum.novisad.features.adresa.Adresa;
+import rc.ac.singidunum.novisad.messages.dto.PayrollCalculationRequest;
 
 @Service
 public class RabbitMQJsonConsumer {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RabbitMQJsonConsumer.class);
 	
 	@RabbitListener(queues = {"${rabbitmq.jsonqueue.name}"})
-	public void consumeJsonMessage(Adresa a)
+	public void consumeJsonMessage(PayrollCalculationRequest p)
 	{
-		LOGGER.info(String.format("Primljen JSON poruka -> %s", a.toString()));
+		LOGGER.info(String.format("Primljen JSON poruka -> %s",p));
 	}
 }

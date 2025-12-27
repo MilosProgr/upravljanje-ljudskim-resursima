@@ -20,6 +20,9 @@ import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 
 @Configuration
 public class RabbitConfig {
@@ -76,14 +79,25 @@ public class RabbitConfig {
 	}
 	
 	@Bean
-	public MessageConverter converter() {
-		return new Jackson2JsonMessageConverter();
+	public ObjectMapper objectMapper() {
+	    ObjectMapper mapper = new ObjectMapper();
+	    mapper.registerModule(new JavaTimeModule());
+	    return mapper;
 	}
 	
 	@Bean
-	public AmqpTemplate amqpTemplate(ConnectionFactory connectionFactory) {
+	public MessageConverter converter(ObjectMapper mapper) {
+		return new Jackson2JsonMessageConverter(mapper);
+	}
+	
+	@Bean
+	public AmqpTemplate amqpTemplate(
+			ConnectionFactory connectionFactory,
+			MessageConverter converter
+	) 
+	{
 		RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-		rabbitTemplate.setMessageConverter(converter());
+		rabbitTemplate.setMessageConverter(converter);
 		return rabbitTemplate;
 	}
 	
