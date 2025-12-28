@@ -1,11 +1,13 @@
 package rc.ac.singidunum.novisad.messages.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import rc.ac.singidunum.novisad.features.zaposlen.ZaposleniService;
 import rc.ac.singidunum.novisad.messages.dto.PayrollCalculationRequest;
 import rc.ac.singidunum.novisad.messages.dto.PayrollCalulationResult;
 import rc.ac.singidunum.novisad.messages.publisher.RabbitMQJsonProducer;
@@ -13,24 +15,40 @@ import rc.ac.singidunum.novisad.messages.publisher.RabbitMQJsonProducer;
 @RestController
 @RequestMapping("/api/v2")
 public class MessageJsonController {
-	
-	private RabbitMQJsonProducer jsonProducer;
 
-	public MessageJsonController(RabbitMQJsonProducer jsonProducer) {
-		this.jsonProducer = jsonProducer;
-	}
-	@PostMapping("/publish")
-	public ResponseEntity<PayrollCalulationResult> sendJsonMessage(@RequestBody PayrollCalculationRequest p){
-		jsonProducer.sendJsonMessage(p);
-//		return ResponseEntity.ok("JSON poruka poslata u RabbitMQ ...");
-		PayrollCalulationResult response =
-	            new PayrollCalulationResult(
-	                    p.zaposleniId(),
-	                    p.period(),
-	                    "PROCESSING"
-	            );
+    private final RabbitMQJsonProducer producer;
+    private final ZaposleniService zaposleniService;
 
-	    return ResponseEntity.accepted().body(response);
-	}
-	
+    public MessageJsonController(RabbitMQJsonProducer producer,
+                                 ZaposleniService zaposleniService) {
+        this.producer = producer;
+        this.zaposleniService = zaposleniService;
+    }
+
+    @PostMapping("/publish")
+    public ResponseEntity<PayrollCalulationResult> send(
+            @RequestBody PayrollCalculationRequest req) {
+
+        if (!zaposleniService.existsById(req.zaposleniId())) {
+            return ResponseEntity.badRequest().body(
+                    new PayrollCalulationResult(
+                            req.zaposleniId(),
+                            req.period(),
+                            "ZAPOSLENI_NE_POSTOJI",
+                            null, null, null, null
+                    )
+            );
+        }
+
+        producer.sendJsonMessage(req);
+
+        return ResponseEntity.accepted().body(
+                new PayrollCalulationResult(
+                        req.zaposleniId(),
+                        req.period(),
+                        "PROCESSING",
+                        null, null, null, null
+                )
+        );
+    }
 }

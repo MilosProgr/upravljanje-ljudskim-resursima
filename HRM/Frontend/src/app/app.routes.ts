@@ -26,6 +26,7 @@ import { PozicijeComponent } from './components/pozicije/pozicije.component';
 import { MojaZaduzenjaComponent } from './components/zaduzenje/moja-zaduzenja/moja-zaduzenja.component';
 import { GetZaposleniPlataComponent } from './components/plata/get-zaposleni-plata/get-zaposleni-plata.component';
 import { GetZahteviZaposlenogComponent } from './components/odsustva/get-zahtevi-zaposlenog/get-zahtevi-zaposlenog.component';
+import { PayrollComponent } from './components/payroll/payroll.component';
 
 export const routes: Routes = [
 
@@ -64,6 +65,8 @@ export const routes: Routes = [
     { path: "radnoVremeZaposlen", component: ZaposlenRadnoVremeComponent, data: { allowedRoles: ['RADNIK'] }, canActivate: [authGuard] },
 
     { path: "pozicije", component: PozicijeComponent, data: { allowedRoles: ['ADMINISTRATOR'] }, canActivate: [authGuard] },
+    { path: "payrollComponent", component: PayrollComponent, data: { allowedRoles: ['RADNIK'] }, canActivate: [authGuard] },
+
 
     { path: "pravoPristupa", component: PravoPristupaComponent, data: { allowedRoles: ['ADMINISTRATOR'] }, canActivate: [authGuard] },
     //login

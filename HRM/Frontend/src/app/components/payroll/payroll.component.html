@@ -1,0 +1,51 @@
+<p>Payroll works!</p>
+
+<!-- Forma za unos podataka -->
+<form [formGroup]="calculateForm" (ngSubmit)="onSubmit()">
+
+    <div>
+        <label>Period (YYYY-MM)</label>
+        <input type="month" formControlName="period" required />
+    </div>
+
+    <div>
+        <label>Broj radnih sati</label>
+        <input type="number" formControlName="brojRadnihSati" min="0" required />
+    </div>
+
+    <div>
+        <label>Broj dana odsustva</label>
+        <input type="number" formControlName="brojDanaOdsustva" min="0" required />
+    </div>
+
+    <div>
+        <label>Broj prekovremenih sati</label>
+        <input type="number" formControlName="brojPrekovremenihSati" min="0" required />
+    </div>
+
+    <div *ngIf="plata">
+        <strong>Osnovna plata:</strong> {{ plata.iznos }}
+    </div>
+
+    <button type="submit" [disabled]="calculateForm.invalid">
+        Izračunaj platu
+    </button>
+</form>
+
+<!-- Status obrade -->
+<div *ngIf="status" style="margin-top: 1rem;">
+    <strong>Status:</strong> {{ status }}
+</div>
+
+<!-- Rezultat uspešne obrade -->
+<div *ngIf="result?.status === 'SUCCESS'" style="margin-top: 1rem;">
+    <p><strong>Bruto plata:</strong> {{ result?.brutoPlata }}</p>
+    <p><strong>Neto plata:</strong> {{ result?.neto }}</p>
+    <p><strong>Porez:</strong> {{ result?.porez }}</p>
+    <p><strong>Doprinosi:</strong> {{ result?.doprinosi }}</p>
+</div>
+
+<!-- Greška / neuspeh -->
+<div *ngIf="result?.status === 'ERROR'" style="margin-top: 1rem; color: red;">
+    <p>Došlo je do greške prilikom obrade plate.</p>
+</div>

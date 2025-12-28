@@ -42,6 +42,9 @@ public class RabbitConfig {
 	@Value("${rabbitmq.routing.json.key}")
 	private String routingJsonKey;
 	
+	@Value("${rabbitmq.payroll.result.queue}")
+	private String resultQueue;
+	
 	@Bean
 	public Queue queue(){
 		return new Queue(name);
@@ -51,6 +54,11 @@ public class RabbitConfig {
 	public Queue jsonQueue() {
 		return new Queue(jsonQueue);
 	}
+	
+	@Bean
+    public Queue resultQueue() {
+        return new Queue(resultQueue, true);
+    }
 	
 	//spring bean for rabbitmq exchange 
 	@Bean

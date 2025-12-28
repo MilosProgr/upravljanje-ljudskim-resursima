@@ -29,6 +29,8 @@ public interface ZaposleniRepository extends JpaRepository<Zaposleni, Long> {
 	
 	public Optional<Zaposleni> findById(Long id);
 	
+	public boolean existsById(Long id);
+	
 
 
 }

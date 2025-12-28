@@ -42,6 +42,10 @@ public class ZaposleniService extends GenericCrudService<ZaposleniDTORecord, Zap
 		return zap;
 	}
 	
+	public boolean existsById(Long id) {
+		return zaposlenRepository.existsById(id);
+	}
+	
 	
 	
 
